@@ -1,0 +1,24 @@
+# Node.js
+node_modules/
+
+# Compiled output
+dist/
+
+# Logs
+logs/
+*.log
+
+# Dependency directories
+.pnp/
+.pnp.js
+
+# Environment variables
+.env
+
+# IDE files
+.vscode/
+.idea/
+
+# Miscellaneous
+.DS_Store
+Thumbs.db
