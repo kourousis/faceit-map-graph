@@ -1,0 +1,22 @@
+{
+    "manifest_version": 3,
+    "name": "Faceit Map Graph",
+    "version": "1.0",
+    "description": "Adds a map win graph in the faceit match room",
+    "icons": {
+        "48": "icons/cs2.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "faceit_map_graph.js"
+            ]
+        }
+    ],
+    "action": {
+        "default_popup": "popup.html"
+    }
+}
