@@ -12,7 +12,7 @@
                 "<all_urls>"
             ],
             "js": [
-                "src/faceit_map_graph.js"
+                "src/scripts/faceit_map_graph.js"
             ]
         }
     ],
