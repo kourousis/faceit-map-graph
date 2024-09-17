@@ -22,3 +22,6 @@ logs/
 # Miscellaneous
 .DS_Store
 Thumbs.db
+
+# Drawio files
+*.drawio
