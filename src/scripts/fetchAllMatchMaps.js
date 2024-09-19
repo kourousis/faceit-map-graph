@@ -8,9 +8,8 @@ export async function fetchAllMatchMaps(match_Ids) {
     // }
 
     try {
-        for (let playerMatches of match_Ids) {
-            await Promise.all(playerMatches.map(id => getMatchMap(id)))
-        }
+        const allMatchIds = match_Ids.flat();
+        await Promise.all(allMatchIds.map(id => getMatchMap(id)));
     } catch (error) {
         console.error('Error fetching all match maps:', error)
     }
