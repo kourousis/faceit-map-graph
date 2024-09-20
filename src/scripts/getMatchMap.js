@@ -13,7 +13,11 @@ export async function getMatchMap(match_id) {
         });
 
         const winning_faction = response.data.results.winning_faction;
+        const map = response.data.voting.map.pick[0]
+
+        // Debugging
         console.log(winning_faction)
+
         if (teamFriendlyMapData[match_id] && teamFriendlyMapData[match_id].player_team) {
             if (teamFriendlyMapData[match_id].player_team == winning_faction) {
                 // win
@@ -26,7 +30,6 @@ export async function getMatchMap(match_id) {
             console.error(`teamFriendlyMapData for match_id ${match_id} is not properly initialized.`)
         }
 
-        const map = response.data.voting.map.pick[0]
         // Assign map
         teamFriendlyMapData[match_id].map = map
 
