@@ -2,7 +2,7 @@ import axios from 'axios';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const api_key = "0ffc019b-5866-4ded-a7f0-3270f41375d4"
+const api_key = process.env.API_KEY
 const game = 'cs2';
 let teamFriendly = ["Washamga", "Dreamas", "fr13ty", "Ciortas", "simuxer"];
 //let teamEnemy = ["BooCull", "Simsas999", "abhKRak3N", "TheCaesar0", "retsol"];
