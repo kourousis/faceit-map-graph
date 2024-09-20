@@ -15,9 +15,6 @@ export async function getMatchMap(match_id) {
         const winning_faction = response.data.results.winner;
         const map = response.data.voting.map.pick[0]
 
-        // Debugging
-        console.log(winning_faction)
-
         if (teamFriendlyMapData[match_id] && teamFriendlyMapData[match_id].player_team) {
             if (teamFriendlyMapData[match_id].player_team == winning_faction) {
                 // win
