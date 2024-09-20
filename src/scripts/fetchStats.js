@@ -4,8 +4,14 @@ dotenv.config();
 
 const api_key = process.env.API_KEY
 const game = 'cs2';
+const teamFriendlyMapData = {}
+const teamEnemyMapData = {}
+
+// Hardcoded team members
+// Later version will extract team member names from Faceit matchroom HTML
 let teamFriendly = ["Washamga", "Dreamas", "fr13ty", "Ciortas", "simuxer"];
 //let teamEnemy = ["BooCull", "Simsas999", "abhKRak3N", "TheCaesar0", "retsol"];
+
 
 export const fetchStats = async () => {
     try {
@@ -20,9 +26,6 @@ export const fetchStats = async () => {
         console.error('An error occurred:', error)
     }
 }
-
-const teamFriendlyMapData = {}
-const teamEnemyMapData = {}
 
 const getFactionMatches = async (game, teamFriendly, teamEnemy = null, limit = 10) => {
     const teamFriendlyPlayerId = await getPlayerId(teamFriendly)
