@@ -12,9 +12,10 @@ export async function getMatchMap(match_id) {
             },
         });
 
-        const winner = response.data.results.winner;
+        const winning_faction = response.data.results.winning_faction;
+        console.log(winning_faction)
         if (teamFriendlyMapData[match_id] && teamFriendlyMapData[match_id].player_team) {
-            if (teamFriendlyMapData[match_id].player_team == winner) {
+            if (teamFriendlyMapData[match_id].player_team == winning_faction) {
                 // win
                 teamFriendlyMapData[match_id].result = 1
             } else {
