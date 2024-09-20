@@ -12,7 +12,6 @@ const teamEnemyMapData = {}
 let teamFriendly = ["Washamga", "Dreamas", "fr13ty", "Ciortas", "simuxer"];
 //let teamEnemy = ["BooCull", "Simsas999", "abhKRak3N", "TheCaesar0", "retsol"];
 
-
 export const fetchStats = async () => {
     try {
         const match_Ids = []
