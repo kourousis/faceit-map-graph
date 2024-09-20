@@ -25,7 +25,6 @@ export async function getFactionMatches(game, teamFriendly, teamEnemy = null, li
         //console.log(matches_data)
         let match_Ids = []
 
-        let i = 0
         for (let match of matches_data) {
             let player_team = "faction2"
             for (let player of match.teams.faction1.players) {
@@ -35,8 +34,7 @@ export async function getFactionMatches(game, teamFriendly, teamEnemy = null, li
             }
 
             match_Ids.push(match.match_id)
-            teamFriendlyMapData[match_Ids[i]] = { player_team: player_team }
-            i++;
+            teamFriendlyMapData[match.match_id] = { player_team: player_team }
         }
 
         return match_Ids
