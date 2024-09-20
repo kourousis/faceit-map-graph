@@ -14,8 +14,8 @@ let teamFriendly = ["Washamga", "Dreamas", "fr13ty", "Ciortas", "simuxer"];
         }
 
         await fetchAllMatchMaps(match_Ids)
-        console.log(JSON.stringify(teamFriendlyMapData, null, 2))
-        console.log("NUMBER OF MATCHES", Object.keys(teamFriendlyMapData).length);
+        // console.log(JSON.stringify(teamFriendlyMapData, null, 2))
+        // console.log("NUMBER OF MATCHES", Object.keys(teamFriendlyMapData).length);
     } catch (error) {
         console.error('An error occurred:', error)
     }

@@ -4,8 +4,8 @@ dotenv.config();
 
 import { getPlayerId } from './getPlayerId.js'
 
-export let teamFriendlyMapData = {}
-export let teamEnemyMapData = {}
+export const teamFriendlyMapData = {}
+export const teamEnemyMapData = {}
 
 export async function getFactionMatches(game, teamFriendly, teamEnemy = null, limit = 10) {
     const teamFriendlyPlayerId = await getPlayerId(teamFriendly)
