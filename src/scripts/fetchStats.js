@@ -15,9 +15,7 @@ let teamFriendly = ["Washamga", "Dreamas", "fr13ty", "Ciortas", "simuxer"];
 export const fetchStats = async () => {
     try {
         let match_Ids = []
-        for (let friendlyPlayer of teamFriendly) {
-            match_Ids.push(await getFactionMatches(game, friendlyPlayer))
-        }
+        match_Ids.push(await getFactionMatches(game, friendlyPlayer))
 
         await fetchAllMatchMaps(match_Ids)
         //console.log(match_Ids)
@@ -28,38 +26,38 @@ export const fetchStats = async () => {
 }
 
 const getFactionMatches = async (game, team, limit = 10) => {
-    const teamFriendlyPlayerId = await getPlayerId(team)
-
-    try {
-        const response = await axios.get(`https://open.faceit.com/data/v4/players/${teamFriendlyPlayerId}/history`, {
-            headers: {
-                'Authorization': `Bearer ${api_key}`
-            },
-            params: {
-                game: game,
-                limit: limit
-            }
-        });
-
-        const matches_data = response.data.items
-        let match_Ids_local = []
-
-        for (let match of matches_data) {
-            let player_team = "faction2"
-            for (let player of match.teams.faction1.players) {
-                if (player.player_id === teamFriendlyPlayerId) {
-                    player_team = "faction1"
+    for (let player of team) {
+        try {
+            const response = await axios.get(`https://open.faceit.com/data/v4/players/${player}/history`, {
+                headers: {
+                    'Authorization': `Bearer ${api_key}`
+                },
+                params: {
+                    game: game,
+                    limit: limit
                 }
+            });
+
+            const matches_data = response.data.items
+            let match_Ids_local = []
+
+            for (let match of matches_data) {
+                // let player_team = "faction2"
+                // for (let player of match.teams.faction1.players) {
+                //     if (player.player_id === player) {
+                //         player_team = "faction1"
+                //     }
+                // }
+
+                match_Ids_local.push(match.match_id)
+                // teamFriendlyMapData[match.match_id] = { player_team: player_team }
             }
 
-            match_Ids_local.push(match.match_id)
-            teamFriendlyMapData[match.match_id] = { player_team: player_team }
+            return match_Ids_local
+        } catch (error) {
+            console.error('Error fetching matches:', error.response ? error.response.data : error.message)
+            return []
         }
-
-        return match_Ids_local
-    } catch (error) {
-        console.error('Error fetching matches:', error.response ? error.response.data : error.message)
-        return []
     }
 
 }
