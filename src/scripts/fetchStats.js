@@ -92,9 +92,9 @@ const getMatchMap = async (match_Ids) => {
                     if (player.player_id === player) {
                         player_team = "faction1";
                     }
-                }
 
-                teamFriendlyMapData[match] = { player_team: player_team };
+                    teamFriendlyMapData[match] = { player_team: player_team };
+                }
 
                 const winning_faction = response.data.results.winner;
                 const map = response.data.voting.map.pick[0];
