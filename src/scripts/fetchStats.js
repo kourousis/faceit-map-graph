@@ -15,7 +15,7 @@ let teamFriendly = ["Washamga", "Dreamas", "fr13ty", "Ciortas", "simuxer"];
 export const fetchStats = async () => {
     try {
         let match_Ids = []
-        match_Ids.push(await getFactionMatches(game, friendlyPlayer))
+        match_Ids.push(await getFactionMatches(game, teamFriendly))
 
         await fetchAllMatchMaps(match_Ids)
         //console.log(match_Ids)
