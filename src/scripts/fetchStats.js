@@ -27,8 +27,9 @@ export const fetchStats = async () => {
 
 const getFactionMatches = async (game, team, limit = 10) => {
     for (let player of team) {
+        const player_Id = await getPlayerId(player)
         try {
-            const response = await axios.get(`https://open.faceit.com/data/v4/players/${player}/history`, {
+            const response = await axios.get(`https://open.faceit.com/data/v4/players/${player_Id}/history`, {
                 headers: {
                     'Authorization': `Bearer ${api_key}`
                 },
