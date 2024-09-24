@@ -9,8 +9,8 @@ const teamEnemyMapData = {}
 
 // Hardcoded team members
 // Later version will extract team member names from Faceit matchroom HTML
-let teamFriendly = ["Washamga", "Dreamas", "fr13ty", "Ciortas", "simuxer"];
-//let teamEnemy = ["BooCull", "Simsas999", "abhKRak3N", "TheCaesar0", "retsol"];
+let teamFriendly = ["Washamga", "Dreamas", "fr13ty", "Ciortas", "simuxer"]
+//let teamEnemy = ["BooCull", "Simsas999", "abhKRak3N", "TheCaesar0", "retsol"]
 
 export const fetchStats = async () => {
     try {
@@ -56,36 +56,44 @@ const getMatchMapResults = async (match_id, player_Id) => {
             }
         });
 
+        const winning_faction = response.data.results.winner
+        const map = response.data.voting.map.pick[0]
+
+        if (teamFriendlyMapData[match_id]) {
+            console.log(`Match ${match_id} is already processed.`)
+
+            if (teamFriendlyMapData[match_id].player_team === winning_faction) {
+                // win
+                teamFriendlyMapData[match_id].result++
+            }
+            return
+        }
+
         let player_team = "faction2";
         for (let teammate of response.data.teams.faction1.roster) {
             if (teammate.player_id === player_Id) {
-                player_team = "faction1";
+                player_team = "faction1"
             }
 
-            teamFriendlyMapData[match_id] = { player_team: player_team };
+            teamFriendlyMapData[match_id] = { player_team: player_team, result: 0, map: "" }
         }
 
-        const winning_faction = response.data.results.winner;
-        const map = response.data.voting.map.pick[0];
-
+        // Assign win / loss to current match
         if (teamFriendlyMapData[match_id] && teamFriendlyMapData[match_id].player_team) {
-            if (teamFriendlyMapData[match_id].player_team == winning_faction) {
+            if (teamFriendlyMapData[match_id].player_team === winning_faction) {
                 // win
-                teamFriendlyMapData[match_id].result = 1;
-            } else {
-                // loss
-                teamFriendlyMapData[match_id].result = 0;
+                teamFriendlyMapData[match_id].result++
             }
         } else {
-            console.error(`teamFriendlyMapData for match ${match_id} is not properly initialized.`);
+            console.error(`teamFriendlyMapData for match ${match_id} is not properly initialized.`)
         }
 
         // Assign map
-        teamFriendlyMapData[match_id].map = map;
+        teamFriendlyMapData[match_id].map = map
     } catch (error) {
-        console.error('Error fetching matches:', error.response ? error.response.data : error.message);
+        console.error('Error fetching matches:', error.response ? error.response.data : error.message)
     }
-};
+}
 
 const getPlayerId = async (nickname) => {
     try {
@@ -103,5 +111,3 @@ const getPlayerId = async (nickname) => {
         console.error('Error fetching matches:', error.response ? error.response.data : error.message)
     }
 }
-
-
