@@ -14,20 +14,21 @@ let teamFriendly = ["Washamga", "Dreamas", "fr13ty", "Ciortas", "simuxer"];
 
 export const fetchStats = async () => {
     try {
-        const match_Ids = []
+        let match_Ids = []
         for (let friendlyPlayer of teamFriendly) {
             match_Ids.push(await getFactionMatches(game, friendlyPlayer))
         }
 
         await fetchAllMatchMaps(match_Ids)
-        console.log(match_Ids)
+        //console.log(match_Ids)
+        console.log(teamFriendlyMapData, Object.keys(teamFriendlyMapData).length)
     } catch (error) {
         console.error('An error occurred:', error)
     }
 }
 
-const getFactionMatches = async (game, teamFriendly, teamEnemy = null, limit = 10) => {
-    const teamFriendlyPlayerId = await getPlayerId(teamFriendly)
+const getFactionMatches = async (game, team, limit = 10) => {
+    const teamFriendlyPlayerId = await getPlayerId(team)
 
     try {
         const response = await axios.get(`https://open.faceit.com/data/v4/players/${teamFriendlyPlayerId}/history`, {
@@ -41,7 +42,7 @@ const getFactionMatches = async (game, teamFriendly, teamEnemy = null, limit = 1
         });
 
         const matches_data = response.data.items
-        let match_Ids = []
+        let match_Ids_local = []
 
         for (let match of matches_data) {
             let player_team = "faction2"
@@ -51,11 +52,11 @@ const getFactionMatches = async (game, teamFriendly, teamEnemy = null, limit = 1
                 }
             }
 
-            match_Ids.push(match.match_id)
+            match_Ids_local.push(match.match_id)
             teamFriendlyMapData[match.match_id] = { player_team: player_team }
         }
 
-        return match_Ids
+        return match_Ids_local
     } catch (error) {
         console.error('Error fetching matches:', error.response ? error.response.data : error.message)
         return []
