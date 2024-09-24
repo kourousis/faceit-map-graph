@@ -14,10 +14,14 @@ let teamFriendly = ["Washamga", "Dreamas", "fr13ty", "Ciortas", "simuxer"];
 
 export const fetchStats = async () => {
     try {
+        // Friendly matches
         let match_Ids = []
         match_Ids.push(await getFactionMatches(game, teamFriendly))
-
         await fetchAllMatchMaps(match_Ids)
+
+        // Enemy matches
+        // ...
+
         //console.log(match_Ids)
         console.log(teamFriendlyMapData, Object.keys(teamFriendlyMapData).length)
     } catch (error) {
