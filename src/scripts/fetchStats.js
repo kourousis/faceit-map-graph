@@ -112,7 +112,7 @@ const getMatchMapResultsFriendly = async (match_id, player_Id) => {
                 player_team = "faction1"
             }
 
-            teamFriendlyMapData[match_id] = { player_Id: player_Id, player_team: player_team, result: 0, map: "" }
+            teamFriendlyMapData[match_id] = { player_Id: player_Id, player_team: player_team, result: 0, map: map}
         }
 
         // Assign win / loss to current match
@@ -125,8 +125,6 @@ const getMatchMapResultsFriendly = async (match_id, player_Id) => {
             console.error(`teamFriendlyMapData for match ${match_id} is not properly initialized.`)
         }
 
-        // Assign map
-        teamFriendlyMapData[match_id].map = map
     } catch (error) {
         console.error('Error fetching matches:', error.response ? error.response.data : error.message)
     }
@@ -160,7 +158,7 @@ const getMatchMapResultsEnemy = async (match_id, player_Id) => {
                 player_team = "faction1"
             }
 
-            teamEnemyMapData[match_id] = { player_Id: player_Id, player_team: player_team, result: 0, map: "" }
+            teamEnemyMapData[match_id] = { player_Id: player_Id, player_team: player_team, result: 0, map: map }
         }
 
         // Assign win / loss to current match
@@ -173,8 +171,6 @@ const getMatchMapResultsEnemy = async (match_id, player_Id) => {
             console.error(`teamEnemyMapData for match ${match_id} is not properly initialized.`)
         }
 
-        // Assign map
-        teamEnemyMapData[match_id].map = map
     } catch (error) {
         console.error('Error fetching matches:', error.response ? error.response.data : error.message)
     }
