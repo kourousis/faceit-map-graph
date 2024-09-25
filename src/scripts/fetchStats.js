@@ -22,6 +22,8 @@ export const fetchStats = async () => {
 }
 
 const getFactionMatchIds = async (game, team, limit = 10) => {
+    const matchPromises = []
+
     for (let player of team) {
         const player_Id = await getPlayerId(player)
 
@@ -39,13 +41,15 @@ const getFactionMatchIds = async (game, team, limit = 10) => {
             const matches_data = response.data.items
 
             for (let match of matches_data) {
-                await getMatchMapResults(match.match_id, player_Id)
+                matchPromises.push(getMatchMapResults(match.match_id, player_Id))
             }
         } catch (error) {
             console.error('Error fetching matches:', error.response ? error.response.data : error.message)
             return
         }
     }
+
+    await Promise.all(matchPromises);
 }
 
 const getMatchMapResults = async (match_id, player_Id) => {
