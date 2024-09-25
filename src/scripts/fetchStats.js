@@ -15,7 +15,7 @@ let teamEnemy = ["BooCull", "Simsas999", "abhKRak3N", "TheCaesar0", "retsol"]
 export const fetchStats = async () => {
     try {
         await getFactionMatchIds(game, teamFriendly, teamEnemy)
-        // console.log("teamFriendlyMapData", teamFriendlyMapData, Object.keys(teamFriendlyMapData).length, "ENTRIES")
+        console.log("teamFriendlyMapData", teamFriendlyMapData, Object.keys(teamFriendlyMapData).length, "ENTRIES")
         console.log("teamEnemyMapData", teamEnemyMapData, Object.keys(teamEnemyMapData).length, "ENTRIES")
     } catch (error) {
         console.error('An error occurred:', error)
@@ -94,6 +94,7 @@ const getMatchMapResultsFriendly = async (match_id, player_Id) => {
 
         const winning_faction = response.data.results.winner
         const map = response.data?.voting?.map?.pick?.[0]
+        if (map === undefined) console.log(match_id, "map is left UNDEFINED")
 
         if (teamFriendlyMapData[match_id]) {
             console.log(`teamFriendlyMapData Match ${match_id} is already processed.`)
@@ -141,6 +142,7 @@ const getMatchMapResultsEnemy = async (match_id, player_Id) => {
 
         const winning_faction = response.data.results.winner
         const map = response.data?.voting?.map?.pick?.[0]
+        if (map === undefined) console.log(match_id, "map is left UNDEFINED")
 
         if (teamEnemyMapData[match_id]) {
             console.log(`teamEnemyMapData Match ${match_id} is already processed.`)
