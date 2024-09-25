@@ -79,7 +79,7 @@ const getMatchMapResults = async (match_id, player_Id) => {
                 player_team = "faction1"
             }
 
-            teamFriendlyMapData[match_id] = { player_team: player_team, result: 0, map: "" }
+            teamFriendlyMapData[match_id] = { player_Id: player_Id, player_team: player_team, result: 0, map: "" }
         }
 
         // Assign win / loss to current match
