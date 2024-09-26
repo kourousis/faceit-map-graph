@@ -13,7 +13,7 @@ let teamFriendly = ["Washamga", "Dreamas", "fr13ty", "Ciortas", "simuxer"]
 let teamEnemy = ["BooCull", "Simsas999", "abhKRak3N", "TheCaesar0", "retsol"]
 
 export const fetchStats = async () => {
-    const mapGraphArray = {
+    const mapGraphObject = {
         "friendly": {
             "de_ancient": 0,
             "de_anubis": 0,
@@ -44,8 +44,8 @@ export const fetchStats = async () => {
             if (teamFriendlyMapData.hasOwnProperty(key)) {
                 const match = teamFriendlyMapData[key]
                 const map = match.map
-                if (mapGraphArray.friendly.hasOwnProperty(map)) {
-                    mapGraphArray.friendly[map] += match.result
+                if (mapGraphObject.friendly.hasOwnProperty(map)) {
+                    mapGraphObject.friendly[map] += match.result
                 }
             }
         }
@@ -55,14 +55,21 @@ export const fetchStats = async () => {
             if (teamEnemyMapData.hasOwnProperty(key)) {
                 const match = teamEnemyMapData[key]
                 const map = match.map
-                if (mapGraphArray.enemy.hasOwnProperty(map)) {
-                    mapGraphArray.enemy[map] += match.result
+                if (mapGraphObject.enemy.hasOwnProperty(map)) {
+                    mapGraphObject.enemy[map] += match.result
                 }
             }
         }
 
-        console.log(mapGraphArray)
-        return mapGraphArray
+        // Divide all map wins by 5
+        for (const team in mapGraphObject) {
+            for (const map in mapGraphObject[team]) {
+                mapGraphObject[team][map] /= 5
+            }
+        }
+
+        console.log(mapGraphObject)
+        return mapGraphObject
     } catch (error) {
         console.error('An error occurred:', error)
     }
