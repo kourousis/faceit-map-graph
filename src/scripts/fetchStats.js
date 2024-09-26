@@ -13,10 +13,56 @@ let teamFriendly = ["Washamga", "Dreamas", "fr13ty", "Ciortas", "simuxer"]
 let teamEnemy = ["BooCull", "Simsas999", "abhKRak3N", "TheCaesar0", "retsol"]
 
 export const fetchStats = async () => {
+    const mapGraphArray = {
+        "friendly": {
+            "de_ancient": 0,
+            "de_anubis": 0,
+            "de_dust2": 0,
+            "de_inferno": 0,
+            "de_mirage": 0,
+            "de_nuke": 0,
+            "de_vertigo": 0
+        },
+        "enemy": {
+            "de_ancient": 0,
+            "de_anubis": 0,
+            "de_dust2": 0,
+            "de_inferno": 0,
+            "de_mirage": 0,
+            "de_nuke": 0,
+            "de_vertigo": 0
+        }
+    }
+
     try {
         await getFactionMatchIds(game, teamFriendly, teamEnemy)
         console.log("teamFriendlyMapData", teamFriendlyMapData, Object.keys(teamFriendlyMapData).length, "ENTRIES")
         console.log("teamEnemyMapData", teamEnemyMapData, Object.keys(teamEnemyMapData).length, "ENTRIES")
+
+        // Sum results of teamFriendlyMapData
+        for (const key in teamFriendlyMapData) {
+            if (teamFriendlyMapData.hasOwnProperty(key)) {
+                const match = teamFriendlyMapData[key]
+                const map = match.map
+                if (mapGraphArray.friendly.hasOwnProperty(map)) {
+                    mapGraphArray.friendly[map] += match.result
+                }
+            }
+        }
+
+        // Sum results of teamEnemyMapData
+        for (const key in teamEnemyMapData) {
+            if (teamEnemyMapData.hasOwnProperty(key)) {
+                const match = teamEnemyMapData[key]
+                const map = match.map
+                if (mapGraphArray.enemy.hasOwnProperty(map)) {
+                    mapGraphArray.enemy[map] += match.result
+                }
+            }
+        }
+
+        console.log(mapGraphArray)
+        return mapGraphArray
     } catch (error) {
         console.error('An error occurred:', error)
     }
@@ -112,7 +158,7 @@ const getMatchMapResultsFriendly = async (match_id, player_Id) => {
                 player_team = "faction1"
             }
 
-            teamFriendlyMapData[match_id] = { player_Id: player_Id, player_team: player_team, result: 0, map: map}
+            teamFriendlyMapData[match_id] = { player_Id: player_Id, player_team: player_team, result: 0, map: map }
         }
 
         // Assign win / loss to current match
