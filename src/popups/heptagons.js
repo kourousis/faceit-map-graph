@@ -30,6 +30,7 @@ function createConnectingLines(points1, points2) {
         line.setAttribute('x2', points2[i].x);
         line.setAttribute('y2', points2[i].y);
         line.setAttribute('stroke', 'rgb(107, 101, 93)'); // Set stroke color
+        line.setAttribute('stroke-width', '0.7'); // Set stroke width to a thinner value
         lines.push(line);
     }
     return lines;
@@ -48,7 +49,7 @@ function createImageElement(x, y, href) {
 const svgElement = document.querySelector('svg');
 const outermostRadius = 140;
 const innermostRadius = 10;
-const heptagonCount = 10;
+const heptagonCount = 11;
 const radiusStep = (outermostRadius - innermostRadius) / (heptagonCount - 1);
 
 let previousPoints = null;
