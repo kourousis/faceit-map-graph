@@ -20,9 +20,9 @@ function createHeptagonElement(id, radius) {
 }
 
 const svgElement = document.querySelector('svg');
-const outermostRadius = 140;
+const outermostRadius = 150;
 const innermostRadius = 10;
-const heptagonCount = 15;
+const heptagonCount = 10;
 const radiusStep = (outermostRadius - innermostRadius) / (heptagonCount - 1);
 
 for (let i = 0; i < heptagonCount; i++) {
