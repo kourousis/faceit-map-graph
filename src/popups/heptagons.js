@@ -64,21 +64,20 @@ for (let i = 0; i < heptagonCount; i++) {
         lines.forEach(line => svgElement.appendChild(line));
     }
     previousPoints = currentPoints;
-
-    // Add images to the outermost heptagon
-    if (i === 0) {
-        const imageSources = [
-            '../images/map_logos/de_ancient.png',
-            '../images/map_logos/de_anubis.png',
-            '../images/map_logos/de_dust2.png',
-            '../images/map_logos/de_inferno.png',
-            '../images/map_logos/de_mirage.png',
-            '../images/map_logos/de_nuke.png',
-            '../images/map_logos/de_vertigo.png'
-        ];
-        currentPoints.forEach((point, index) => {
-            const imageElement = createImageElement(point.x, point.y, imageSources[index]);
-            svgElement.appendChild(imageElement);
-        });
-    }
 }
+
+// Add images to the outermost heptagon
+const imageSources = [
+    '../images/map_logos/de_ancient.png',
+    '../images/map_logos/de_anubis.png',
+    '../images/map_logos/de_dust2.png',
+    '../images/map_logos/de_inferno.png',
+    '../images/map_logos/de_mirage.png',
+    '../images/map_logos/de_nuke.png',
+    '../images/map_logos/de_vertigo.png'
+];
+const outermostPoints = createRegularPolygon(7, outermostRadius);
+outermostPoints.forEach((point, index) => {
+    const imageElement = createImageElement(point.x, point.y, imageSources[index]);
+    svgElement.appendChild(imageElement);
+});
