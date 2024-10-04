@@ -35,8 +35,18 @@ function createConnectingLines(points1, points2) {
     return lines;
 }
 
+function createImageElement(x, y, href) {
+    const image = document.createElementNS("http://www.w3.org/2000/svg", "image");
+    image.setAttribute('x', x - 10); // Adjust x position to center the image
+    image.setAttribute('y', y - 10); // Adjust y position to center the image
+    image.setAttribute('width', 20); // Set image width
+    image.setAttribute('height', 20); // Set image height
+    image.setAttribute('href', href); // Set image source
+    return image;
+}
+
 const svgElement = document.querySelector('svg');
-const outermostRadius = 150;
+const outermostRadius = 140;
 const innermostRadius = 10;
 const heptagonCount = 10;
 const radiusStep = (outermostRadius - innermostRadius) / (heptagonCount - 1);
@@ -54,4 +64,21 @@ for (let i = 0; i < heptagonCount; i++) {
         lines.forEach(line => svgElement.appendChild(line));
     }
     previousPoints = currentPoints;
+
+    // Add images to the outermost heptagon
+    if (i === 0) {
+        const imageSources = [
+            '../images/map_logos/de_ancient.png',
+            '../images/map_logos/de_anubis.png',
+            '../images/map_logos/de_dust2.png',
+            '../images/map_logos/de_inferno.png',
+            '../images/map_logos/de_mirage.png',
+            '../images/map_logos/de_nuke.png',
+            '../images/map_logos/de_vertigo.png'
+        ];
+        currentPoints.forEach((point, index) => {
+            const imageElement = createImageElement(point.x, point.y, imageSources[index]);
+            svgElement.appendChild(imageElement);
+        });
+    }
 }
