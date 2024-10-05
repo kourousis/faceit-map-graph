@@ -61,13 +61,6 @@ export const fetchStats = async () => {
             }
         }
 
-        // Divide all map wins by 5
-        for (const team in mapGraphObject) {
-            for (const map in mapGraphObject[team]) {
-                mapGraphObject[team][map] /= 5
-            }
-        }
-
         console.log(mapGraphObject)
         return mapGraphObject
     } catch (error) {
