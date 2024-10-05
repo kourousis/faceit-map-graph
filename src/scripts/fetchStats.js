@@ -36,8 +36,8 @@ export const fetchStats = async () => {
 
     try {
         await getFactionMatchIds(game, teamFriendly, teamEnemy)
-        console.log("teamFriendlyMapData", teamFriendlyMapData, Object.keys(teamFriendlyMapData).length, "ENTRIES")
-        console.log("teamEnemyMapData", teamEnemyMapData, Object.keys(teamEnemyMapData).length, "ENTRIES")
+        // console.log("teamFriendlyMapData", teamFriendlyMapData, Object.keys(teamFriendlyMapData).length, "ENTRIES")
+        // console.log("teamEnemyMapData", teamEnemyMapData, Object.keys(teamEnemyMapData).length, "ENTRIES")
 
         // Sum results of teamFriendlyMapData
         for (const key in teamFriendlyMapData) {
@@ -68,7 +68,7 @@ export const fetchStats = async () => {
     }
 }
 
-const getFactionMatchIds = async (game, teamFriendly, teamEnemy, limit = 10) => {
+const getFactionMatchIds = async (game, teamFriendly, teamEnemy, limit = 20) => {
     const teamFriendlyMatchPromises = []
     const teamEnemyMatchPromises = []
 
