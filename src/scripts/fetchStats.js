@@ -62,6 +62,15 @@ export const fetchStats = async () => {
         }
 
         console.log(mapGraphObject)
+        console.log("matchCounterFriendly", matchCounterFriendly)
+        console.log("matchCounterEnemy", matchCounterEnemy)
+
+        console.log("numOfRepeatsFriendly", numOfRepeatsFriendly)
+        console.log("numOfRepeatsEnemy", numOfRepeatsEnemy)
+
+        console.log("matchCounterFriendly - numOfRepeatsFriendly", matchCounterFriendly - numOfRepeatsFriendly)
+        console.log("matchCounterEnemy - numOfRepeatsEnemy", matchCounterEnemy - numOfRepeatsEnemy)
+
         return mapGraphObject
     } catch (error) {
         console.error('An error occurred:', error)
@@ -130,6 +139,8 @@ const getFactionMatchIds = async (game, teamFriendly, teamEnemy, limit = 20) => 
     await Promise.all(teamEnemyMatchPromises)
 }
 
+let numOfRepeatsFriendly = 0
+let matchCounterFriendly = 0
 const getMatchMapResultsFriendly = async (match_id, player_Id) => {
     try {
         const response = await axios.get(`https://open.faceit.com/data/v4/matches/${match_id}`, {
@@ -147,6 +158,8 @@ const getMatchMapResultsFriendly = async (match_id, player_Id) => {
         }
 
         if (teamFriendlyMapData[match_id]) {
+            numOfRepeatsFriendly++
+            matchCounterFriendly++
             console.log(`teamFriendlyMapData Match ${match_id} is already processed.`)
 
             if (teamFriendlyMapData[match_id].player_team === winning_faction) {
@@ -165,6 +178,8 @@ const getMatchMapResultsFriendly = async (match_id, player_Id) => {
             teamFriendlyMapData[match_id] = { player_Id: player_Id, player_team: player_team, result: 0, map: map }
         }
 
+        matchCounterFriendly++
+
         // Assign win / loss to current match
         if (teamFriendlyMapData[match_id] && teamFriendlyMapData[match_id].player_team) {
             if (teamFriendlyMapData[match_id].player_team === winning_faction) {
@@ -180,6 +195,8 @@ const getMatchMapResultsFriendly = async (match_id, player_Id) => {
     }
 }
 
+let numOfRepeatsEnemy = 0
+let matchCounterEnemy = 0
 const getMatchMapResultsEnemy = async (match_id, player_Id) => {
     try {
         const response = await axios.get(`https://open.faceit.com/data/v4/matches/${match_id}`, {
@@ -197,6 +214,8 @@ const getMatchMapResultsEnemy = async (match_id, player_Id) => {
         }
 
         if (teamEnemyMapData[match_id]) {
+            numOfRepeatsEnemy++
+            matchCounterEnemy++
             console.log(`teamEnemyMapData Match ${match_id} is already processed.`)
 
             if (teamEnemyMapData[match_id].player_team === winning_faction) {
@@ -214,6 +233,8 @@ const getMatchMapResultsEnemy = async (match_id, player_Id) => {
 
             teamEnemyMapData[match_id] = { player_Id: player_Id, player_team: player_team, result: 0, map: map }
         }
+
+        matchCounterEnemy++
 
         // Assign win / loss to current match
         if (teamEnemyMapData[match_id] && teamEnemyMapData[match_id].player_team) {
