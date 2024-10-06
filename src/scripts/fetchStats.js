@@ -61,7 +61,28 @@ export const fetchStats = async () => {
             }
         }
 
-        console.log(mapGraphObject)
+        const mapGraphObjectPercent = JSON.parse(JSON.stringify(mapGraphObject));
+
+        // Divide number of wins in friendly object of mapGraphObjectPercent by matchCounterFriendly
+        for (const map in mapGraphObjectPercent.friendly) {
+            if (mapGraphObjectPercent.friendly.hasOwnProperty(map)) {
+                mapGraphObjectPercent.friendly[map] /= matchCounterFriendly
+                mapGraphObjectPercent.friendly[map] *= 100
+                mapGraphObjectPercent.friendly[map] = parseFloat(mapGraphObjectPercent.friendly[map].toFixed(2))
+            }
+        }
+
+        // Divide number of wins in enemy object of mapGraphObjectPercent by matchCounterEnemy
+        for (const map in mapGraphObjectPercent.enemy) {
+            if (mapGraphObjectPercent.enemy.hasOwnProperty(map)) {
+                mapGraphObjectPercent.enemy[map] /= matchCounterEnemy
+                mapGraphObjectPercent.enemy[map] *= 100
+                mapGraphObjectPercent.enemy[map] = parseFloat(mapGraphObjectPercent.enemy[map].toFixed(2))
+            }
+        }
+
+        console.log("mapGraphObject", mapGraphObject)
+        console.log("mapGraphObjectPercent", mapGraphObjectPercent)
         console.log("matchCounterFriendly", matchCounterFriendly)
         console.log("matchCounterEnemy", matchCounterEnemy)
 
