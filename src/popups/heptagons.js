@@ -69,13 +69,13 @@ for (let i = 0; i < heptagonCount; i++) {
 
 // Add images to the outermost heptagon
 const imageSources = [
-    '../images/map_logos/de_ancient.png',
-    '../images/map_logos/de_anubis.png',
-    '../images/map_logos/de_dust2.png',
-    '../images/map_logos/de_inferno.png',
-    '../images/map_logos/de_mirage.png',
-    '../images/map_logos/de_nuke.png',
-    '../images/map_logos/de_vertigo.png'
+    '../images/map_logos/de_ancient.jpg',
+    '../images/map_logos/de_anubis.jpg',
+    '../images/map_logos/de_dust2.jpg',
+    '../images/map_logos/de_inferno.jpg',
+    '../images/map_logos/de_mirage.jpg',
+    '../images/map_logos/de_nuke.jpg',
+    '../images/map_logos/de_vertigo.jpg'
 ];
 const outermostPoints = createRegularPolygon(7, outermostRadius);
 outermostPoints.forEach((point, index) => {
