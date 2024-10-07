@@ -47,7 +47,7 @@ function createImageElement(x, y, href) {
 }
 
 const svgElement = document.querySelector('svg');
-const outermostRadius = 140;
+const outermostRadius = 120;
 const innermostRadius = 10;
 const heptagonCount = 11;
 const radiusStep = (outermostRadius - innermostRadius) / (heptagonCount - 1);
