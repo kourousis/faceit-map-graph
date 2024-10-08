@@ -112,14 +112,14 @@ const getFactionMatchIds = async (game, teamFriendly, teamEnemy, limit = 20, sta
                 },
                 params: {
                     game: game,
-                    limit: limit,
-                    from : startDate
+                    limit: limit
+                    //from : startDate
                 }
             });
 
             let matches_data = response.data.items
 
-            if (matches_data.competition_type === "matchmaking") {
+            if (matches_data[0].competition_type === "matchmaking") {
                 for (let match of matches_data) {
                     teamFriendlyMatchPromises.push(getMatchMapResultsFriendly(match.match_id, player_Id))
                 }
@@ -141,13 +141,13 @@ const getFactionMatchIds = async (game, teamFriendly, teamEnemy, limit = 20, sta
                 },
                 params: {
                     game: game,
-                    limit: limit,
-                    from : startDate
+                    limit: limit
+                    //from : startDate
                 }
             });
 
             let matches_data = response.data.items
-            if (matches_data.competition_type === "matchmaking") {
+            if (matches_data[0].competition_type === "matchmaking") {
                 for (let match of matches_data) {
                     teamEnemyMatchPromises.push(getMatchMapResultsEnemy(match.match_id, player_Id))
                 }
