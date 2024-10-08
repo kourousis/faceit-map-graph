@@ -98,7 +98,7 @@ export const fetchStats = async () => {
     }
 }
 
-const getFactionMatchIds = async (game, teamFriendly, teamEnemy, limit = 20) => {
+const getFactionMatchIds = async (game, teamFriendly, teamEnemy, limit = 20, startDate = 0) => {
     const teamFriendlyMatchPromises = []
     const teamEnemyMatchPromises = []
 
@@ -112,16 +112,18 @@ const getFactionMatchIds = async (game, teamFriendly, teamEnemy, limit = 20) => 
                 },
                 params: {
                     game: game,
-                    limit: limit
+                    limit: limit,
+                    from : startDate
                 }
             });
 
             let matches_data = response.data.items
 
-            for (let match of matches_data) {
-                teamFriendlyMatchPromises.push(getMatchMapResultsFriendly(match.match_id, player_Id))
+            if (matches_data.competition_type === "matchmaking") {
+                for (let match of matches_data) {
+                    teamFriendlyMatchPromises.push(getMatchMapResultsFriendly(match.match_id, player_Id))
+                }
             }
-
             matches_data = ""
         } catch (error) {
             console.error('Error fetching matches:', error.response ? error.response.data : error.message)
@@ -139,16 +141,17 @@ const getFactionMatchIds = async (game, teamFriendly, teamEnemy, limit = 20) => 
                 },
                 params: {
                     game: game,
-                    limit: limit
+                    limit: limit,
+                    from : startDate
                 }
             });
 
             let matches_data = response.data.items
-
-            for (let match of matches_data) {
-                teamEnemyMatchPromises.push(getMatchMapResultsEnemy(match.match_id, player_Id))
+            if (matches_data.competition_type === "matchmaking") {
+                for (let match of matches_data) {
+                    teamEnemyMatchPromises.push(getMatchMapResultsEnemy(match.match_id, player_Id))
+                }
             }
-
             matches_data = ""
         } catch (error) {
             console.error('Error fetching matches:', error.response ? error.response.data : error.message)
