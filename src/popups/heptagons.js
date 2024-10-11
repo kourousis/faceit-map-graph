@@ -57,9 +57,9 @@ function createGraph(points, color) {
 }
 
 const svgElement = document.querySelector('svg');
-const outermostRadius = 120;
+const outermostRadius = 120; // Keep this value as is
 const innermostRadius = 10;
-const heptagonCount = 11;
+const heptagonCount = 6;
 const radiusStep = (outermostRadius - innermostRadius) / (heptagonCount - 1);
 
 let previousPoints = null;
@@ -93,8 +93,8 @@ outermostPoints.forEach((point, index) => {
 });
 
 export function drawGraph(mapGraphObjectPercent) {
-    const friendlyPoints = createGraphPoints(mapGraphObjectPercent.friendly, outermostRadius);
-    const enemyPoints = createGraphPoints(mapGraphObjectPercent.enemy, outermostRadius);
+    const friendlyPoints = createGraphPoints(mapGraphObjectPercent.friendly, innermostRadius, outermostRadius);
+    const enemyPoints = createGraphPoints(mapGraphObjectPercent.enemy, innermostRadius, outermostRadius);
 
     const friendlyGraph = createGraph(friendlyPoints, 'blue');
     const enemyGraph = createGraph(enemyPoints, 'red');
@@ -103,11 +103,11 @@ export function drawGraph(mapGraphObjectPercent) {
     svgElement.appendChild(enemyGraph);
 }
 
-function createGraphPoints(data, outermostRadius) {
+function createGraphPoints(data, innermostRadius, outermostRadius) {
     const maps = ['de_ancient', 'de_anubis', 'de_dust2', 'de_inferno', 'de_mirage', 'de_nuke', 'de_vertigo'];
     return maps.map((map, index) => {
         const percentage = data[map];
-        const radius = (percentage / 100) * outermostRadius;
+        const radius = innermostRadius + (percentage / 100) * (outermostRadius - innermostRadius);
         const angle = (Math.PI * 2) / maps.length;
         const x = radius * Math.sin(index * angle);
         const y = -radius * Math.cos(index * angle);
