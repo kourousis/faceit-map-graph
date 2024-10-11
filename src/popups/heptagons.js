@@ -59,7 +59,7 @@ function createGraph(points, color) {
 const svgElement = document.querySelector('svg');
 const outermostRadius = 120; // Keep this value as is
 const innermostRadius = 10;
-const heptagonCount = 6;
+const heptagonCount = 11;
 const radiusStep = (outermostRadius - innermostRadius) / (heptagonCount - 1);
 
 let previousPoints = null;
