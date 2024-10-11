@@ -17,7 +17,7 @@ function createHeptagonElement(id, radius) {
     heptagon.setAttribute('id', id);
     const points = createRegularPolygon(7, radius).map(point => `${point.x},${point.y}`).join(' ');
     heptagon.setAttribute('points', points);
-    heptagon.setAttribute('stroke', 'rgb(107, 101, 93)'); // Set stroke color
+    heptagon.setAttribute('stroke', 'rgb(107, 101, 93)');
     return heptagon;
 }
 
@@ -29,8 +29,8 @@ function createConnectingLines(points1, points2) {
         line.setAttribute('y1', points1[i].y);
         line.setAttribute('x2', points2[i].x);
         line.setAttribute('y2', points2[i].y);
-        line.setAttribute('stroke', 'rgb(107, 101, 93)'); // Set stroke color
-        line.setAttribute('stroke-width', '0.7'); // Set stroke width to a thinner value
+        line.setAttribute('stroke', 'rgb(107, 101, 93)');
+        line.setAttribute('stroke-width', '0.7');
         lines.push(line);
     }
     return lines;
@@ -38,12 +38,22 @@ function createConnectingLines(points1, points2) {
 
 function createImageElement(x, y, href) {
     const image = document.createElementNS("http://www.w3.org/2000/svg", "image");
-    image.setAttribute('x', x - 10); // Adjust x position to center the image
-    image.setAttribute('y', y - 10); // Adjust y position to center the image
-    image.setAttribute('width', 20); // Set image width
-    image.setAttribute('height', 20); // Set image height
-    image.setAttribute('href', href); // Set image source
+    image.setAttribute('x', x - 10);
+    image.setAttribute('y', y - 10);
+    image.setAttribute('width', 20);
+    image.setAttribute('height', 20);
+    image.setAttribute('href', href);
     return image;
+}
+
+function createGraph(points, color) {
+    const polygon = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+    const pointsString = points.map(point => `${point.x},${point.y}`).join(' ');
+    polygon.setAttribute('points', pointsString);
+    polygon.setAttribute('stroke', color);
+    polygon.setAttribute('fill', color);
+    polygon.setAttribute('fill-opacity', '0.5');
+    return polygon;
 }
 
 const svgElement = document.querySelector('svg');
@@ -67,7 +77,6 @@ for (let i = 0; i < heptagonCount; i++) {
     previousPoints = currentPoints;
 }
 
-// Add images to the outermost heptagon
 const imageSources = [
     '../images/map_logos/de_ancient.jpg',
     '../images/map_logos/de_anubis.jpg',
@@ -82,3 +91,26 @@ outermostPoints.forEach((point, index) => {
     const imageElement = createImageElement(point.x, point.y, imageSources[index]);
     svgElement.appendChild(imageElement);
 });
+
+export function drawGraph(mapGraphObjectPercent) {
+    const friendlyPoints = createGraphPoints(mapGraphObjectPercent.friendly, outermostRadius);
+    const enemyPoints = createGraphPoints(mapGraphObjectPercent.enemy, outermostRadius);
+
+    const friendlyGraph = createGraph(friendlyPoints, 'blue');
+    const enemyGraph = createGraph(enemyPoints, 'red');
+
+    svgElement.appendChild(friendlyGraph);
+    svgElement.appendChild(enemyGraph);
+}
+
+function createGraphPoints(data, outermostRadius) {
+    const maps = ['de_ancient', 'de_anubis', 'de_dust2', 'de_inferno', 'de_mirage', 'de_nuke', 'de_vertigo'];
+    return maps.map((map, index) => {
+        const percentage = data[map];
+        const radius = (percentage / 100) * outermostRadius;
+        const angle = (Math.PI * 2) / maps.length;
+        const x = radius * Math.sin(index * angle);
+        const y = -radius * Math.cos(index * angle);
+        return { x: x.toFixed(2), y: y.toFixed(2) };
+    });
+}
