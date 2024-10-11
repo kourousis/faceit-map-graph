@@ -1,4 +1,4 @@
-import { fetchStats } from "./fetchStats.js";
+import { fetchStats } from "../scripts/fetchStats.js";
 import { drawGraph } from "./heptagons.js";
 
 (async () => {
