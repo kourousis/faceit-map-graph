@@ -1,8 +1,6 @@
-import axios from 'axios';
-import dotenv from 'dotenv';
-dotenv.config();
+import axios from './axios.min.js';
 
-const api_key = process.env.API_KEY
+const api_key = "0ffc019b-5866-4ded-a7f0-3270f41375d4"
 const game = 'cs2';
 const teamFriendlyMapData = {}
 const teamEnemyMapData = {}
